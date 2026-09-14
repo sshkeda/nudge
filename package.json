@@ -1,0 +1,45 @@
+{
+  "name": "nudge",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Let Codex Desktop and Claude Code talk to each other.",
+  "license": "MIT",
+  "bin": {
+    "nudge": "dist/nudge"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "bun build --compile src/main.ts --outfile dist/nudge && bun build src/codex/desktop-helper.ts --target=node --format=esm --minify --outfile=dist/codex-desktop-helper.mjs",
+    "typecheck": "tsc --noEmit",
+    "lint": "bun --bun oxlint --max-warnings=0",
+    "format": "oxfmt .",
+    "format:check": "oxfmt --check .",
+    "test": "bun test test",
+    "test:e2e:macos-desktop": "bun test/e2e/macos-desktop/run.ts",
+    "test:e2e:linux-desktop": "bun test/e2e/linux-desktop/run.ts",
+    "audit": "bun audit",
+    "hooks:install": "lefthook install",
+    "hooks:validate": "lefthook validate",
+    "verify": "bun run typecheck && bun run lint && bun run format:check && bun run test && bun run test:e2e:linux-desktop && bun run test:e2e:macos-desktop"
+  },
+  "dependencies": {
+    "@effect/platform-bun": "4.0.0-rc.115",
+    "effect": "4.0.0-rc.115"
+  },
+  "devDependencies": {
+    "@copilotkit/aimock": "^1.41.0",
+    "@types/bun": "1.4.2",
+    "lefthook": "2.1.12",
+    "oxfmt": "0.67.0",
+    "oxlint": "1.82.0",
+    "oxlint-plugin-anti-slop": "https://github.com/dmmulroy/anti-slop/archive/c44ef22ca116d0ba62a3ff663a0bd13a3f3fa40b.tar.gz",
+    "typescript": "7.0.2"
+  },
+  "overrides": {
+    "@effect/platform-node-shared": "4.0.0-rc.115"
+  },
+  "engines": {
+    "bun": ">=1.4.2"
+  },
+  "trustedDependencies": []
+}

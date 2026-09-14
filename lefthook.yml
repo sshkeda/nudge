@@ -1,0 +1,17 @@
+lefthook: ./node_modules/.bin/lefthook
+
+pre-commit:
+  parallel: true
+  commands:
+    format:
+      run: bun run format:check
+    lint:
+      run: bun run lint
+
+pre-push:
+  parallel: true
+  commands:
+    verify:
+      run: bun run verify
+    audit:
+      run: bun run audit

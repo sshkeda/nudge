@@ -1,0 +1,11 @@
+*
+!README.md
+!package.json
+!bun.lock
+!tsconfig.json
+!src/**
+!test/e2e/linux-desktop/entrypoint.ts
+!test/e2e/linux-desktop/commands.ts
+!test/e2e/linux-desktop/driver.ts
+!test/e2e/linux-desktop/claude.ts
+!test/e2e/linux-desktop/process.ts
