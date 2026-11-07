@@ -5,6 +5,7 @@ node_modules
 out
 dist
 *.tgz
+!vendor/*.tgz
 
 coverage
 *.lcov
@@ -26,3 +27,5 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 .idea
 
 .DS_Store
+
+*.bun-build

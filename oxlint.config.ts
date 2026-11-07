@@ -1,63 +1,57 @@
-import { defineConfig } from "oxlint"
+import { lintConfig } from "@sshkeda/check";
 
-export default defineConfig({
-  plugins: ["import", "typescript", "unicorn", "oxc", "promise"],
-  categories: {
-    correctness: "error",
-    perf: "error",
-    suspicious: "error"
+export default lintConfig({
+  ".github": { allow: ["isAnUnlistedDirectory"] },
+  ".github/nudge-tic-tac-toe-demo-3x-speed.gif": { allow: ["hasAnUnlistedFileType"] },
+  "docs/how-to-check-account-models-and-usage.md": { allow: ["hasAnUnlistedFileType"] },
+  "scripts/lib/platform/internal/test-platform.ts": { allow: ["readsConfig"] },
+  "scripts/shared/aimock.ts": {
+    allow: ["handlesEveryFailure"],
   },
-  env: {
-    builtin: true,
-    es2024: true
+  "scripts/shared/codex-and-claude.ts": { allow: ["spawnsCommands"] },
+  "scripts/shared/refuse-unsafe-machines.ts": { allow: ["readsConfig"] },
+  "src/index.ts": {
+    allow: ["handlesEveryFailure"],
   },
-  ignorePatterns: [
-    "node_modules",
-    ".agent/**",
-    ".agents/**",
-    ".claude/**",
-    ".codex/**",
-    ".continue/**",
-    ".cursor/**",
-    ".gemini/**",
-    ".opencode/**",
-    ".pi/**",
-    ".roo/**",
-    ".windsurf/**"
-  ],
-  jsPlugins: [
-    { name: "anti-slop", specifier: "./node_modules/oxlint-plugin-anti-slop/src/index.ts" },
-    {
-      name: "anti-slop-effect",
-      specifier: "./node_modules/oxlint-plugin-anti-slop/src/effect/index.ts"
-    }
-  ],
-  rules: {
-    "eslint/eqeqeq": ["error", "always"],
-    "eslint/no-shadow": "error",
-    "eslint/no-var": "error",
-    "eslint/prefer-const": "error",
-    "typescript/consistent-type-imports": "error",
-    "typescript/no-explicit-any": "error",
-    "typescript/no-non-null-asserted-optional-chain": "error",
-    "eslint/no-underscore-dangle": "off",
-    "eslint/no-await-in-loop": "off",
-    "unicorn/consistent-function-scoping": "off",
-    "anti-slop/no-chained-type-assertions": "error",
-    "anti-slop/no-conditional-empty-object-spread": "error",
-    "anti-slop/no-known-value-widening": "error",
-    "anti-slop/no-module-mocking": "error",
-    "anti-slop/no-object-parameters": "error",
-    "anti-slop/no-reflect-apply": "error",
-    "anti-slop/no-reflect-get": "error",
-    "anti-slop/no-runtime-typeof": ["error", { allowInTypeGuards: true }],
-    "anti-slop/no-shape-in-symbol-names": "error",
-    "anti-slop/no-unknown-parameters": "error",
-    "anti-slop/no-unknown-returns": "error",
-    "anti-slop/no-unknown-type-aliases": "error",
-    "anti-slop/no-unsafe-dictionary-type": "error",
-    "anti-slop/no-widen-then-assert": "error",
-    "anti-slop/require-safety-comment-for-type-assertion": "error",
-    "anti-slop-effect/no-service-constructor-imports": "error"
-  }
-})
+  "src/internal/command-words.ts": { allow: ["readsConfig"] },
+  "src/internal/list-command.ts": {
+    allow: ["handlesEveryFailure"],
+  },
+  "src/internal/run-nudge.ts": {
+    allow: ["handlesEveryFailure"],
+  },
+  "src/internal/send-message.ts": {
+    allow: ["handlesEveryFailure"],
+  },
+  "src/lib/claude/internal/claude-peer.ts": { allow: ["pollsWithADeadline"] },
+  "src/lib/claude/internal/claude-service.ts": { services: ["Claude"] },
+  "src/lib/codex-helper/internal/start-helper.ts": {
+    allow: ["readsConfig", "exitsTheProcess", "spawnsCommands", "handlesEveryFailure"],
+  },
+  "src/lib/codex/internal/codex-service.ts": {
+    services: ["Codex"],
+    allow: ["handlesEveryFailure", "waitsOnTimers"],
+  },
+  "src/lib/codex/internal/codex-state-database.ts": { allow: ["usesSqlDatabases"] },
+  "src/lib/codex/internal/read-app-server-defaults.ts": {
+    allow: ["spawnsCommands", "handlesEveryFailure"],
+  },
+  "src/lib/codex/internal/desktop-permissions.ts": {
+    allow: ["handlesEveryFailure"],
+  },
+  "src/lib/platform/internal/macos-platform.ts": { allow: ["locksFiles"] },
+  "src/lib/platform/internal/platform-service.ts": { services: ["Platform"] },
+  "src/shared/output.ts": { services: ["Output"] },
+  "src/shared/print-line.ts": { allow: ["writesToTheTerminal"] },
+  "src/shared/read-environment.ts": { allow: ["readsConfig"] },
+  "src/shared/run-command.ts": {
+    allow: ["spawnsCommands", "handlesEveryFailure"],
+  },
+  "src/shared/wait-until.ts": {
+    allow: ["spawnsCommands", "handlesEveryFailure"],
+  },
+  "tests/internal/waiting-for-a-claude-socket.ts": { allow: ["spawnsCommands"] },
+  "tests/shared/failure-as-value.ts": {
+    allow: ["handlesEveryFailure"],
+  },
+});
